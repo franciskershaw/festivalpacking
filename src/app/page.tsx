@@ -10,11 +10,14 @@ import {
 } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 
+// import connectDB from '@/config/database';
+
 type ProviderType = LiteralUnion<'Google' | 'GitHub' | string, string>;
 
 type ProviderInfo = Record<ProviderType, ClientSafeProvider> | null;
 
 export default function Home() {
+  // console.log('I am in the server?');
   const { data: session } = useSession();
   const [providers, setProviders] = useState<ProviderInfo>(null);
 
@@ -26,6 +29,8 @@ export default function Home() {
 
     setAuthProviders();
   }, []);
+
+  // await connectDB();
 
   return (
     <main className="flex justify-center items-center h-screen border gap-4">
