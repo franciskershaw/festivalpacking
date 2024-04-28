@@ -18,10 +18,10 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body>
-        {/* <SessionProvider session={session}> */}
+        <SessionProvider session={session}>
           <main>{children}</main>
           <Navbar />
-        {/* </SessionProvider> */}
+        </SessionProvider>
       </body>
     </html>
   );
