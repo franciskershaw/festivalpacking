@@ -19,21 +19,21 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  //   callbacks: {
-  //     async signIn(response: any) {
-  //       const profile = response.profile;
-  //       await connectDB();
-  //       const userExists = await User.findOne({ email: profile.email });
-  //       if (!userExists) {
-  //         const username = profile.name.slice(0, 30);
-  //         await User.create({ email: profile.email, username });
-  //       }
-  //       return true;
-  //     },
-  //     async session({ session }: { session: Session }) {
-  //       const user = await User.findOne({ email: session.user.email });
-  //       session.user.id = user._id.toString();
-  //       return session;
-  //     },
-  //   },
+  callbacks: {
+    async signIn(response: any) {
+      const profile = response.profile;
+      await connectDB();
+      const userExists = await User.findOne({ email: profile.email });
+      if (!userExists) {
+        const username = profile.name.slice(0, 30);
+        await User.create({ email: profile.email, username });
+      }
+      return true;
+    },
+    async session({ session }: { session: Session }) {
+      const user = await User.findOne({ email: session.user.email });
+      session.user.id = user._id.toString();
+      return session;
+    },
+  },
 };
