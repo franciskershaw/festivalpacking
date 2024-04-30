@@ -35,10 +35,13 @@ const Navbar = () => {
         <FaListCheck size={30} />
         <span className='text-lg'>Packing</span>
       </div>
-      <div className='flex flex-col gap-2 items-center justify-center'>
-        <FaFloppyDisk size={30} />
-        <span className='text-lg'>Saved Lists</span>
-      </div>
+      {session && (
+        <div className='flex flex-col gap-2 items-center justify-center'>
+          <FaFloppyDisk size={30} />
+          <span className='text-lg'>Saved Lists</span>
+        </div>
+      )}
+
       {session ? (
         <button
           onClick={() => signOut()}
