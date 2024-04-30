@@ -11,7 +11,7 @@ const getSessionUser = async () => {
 
 		return {
 			user: session.user,
-			userId: session.user.id,
+			userId: session.user._id,
 		};
 	} catch (error) {
 		console.error(error);

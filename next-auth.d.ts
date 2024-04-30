@@ -9,7 +9,8 @@ declare module 'next-auth' {
 		user: {
 			name: string;
 			email: string;
-			id: string;
+			_id: string;
+			isAdmin: boolean;
 		};
 	}
 }

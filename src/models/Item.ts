@@ -11,6 +11,14 @@ const ItemSchema = new Schema({
 		ref: 'ItemCategory',
 		required: [true, 'Category is required'],
 	},
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+	},
+	approved: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const Item = models.Item || model('Item', ItemSchema);
