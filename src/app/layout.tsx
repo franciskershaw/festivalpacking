@@ -1,11 +1,11 @@
+import { ListProvider } from '@/providers/ListContext';
+import SessionProvider from '@/providers/SessionProvider';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 
 import Navbar from '@/components/Navbar/Navbar';
 
 import './globals.css';
-
-import SessionProvider from '../providers/SessionProvider';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -22,7 +22,9 @@ export default async function RootLayout({
 		<html lang="en">
 			<body>
 				<SessionProvider session={session}>
-					<main className='px-5'>{children}</main>
+					<ListProvider>
+						<main className="px-5">{children}</main>
+					</ListProvider>
 					<Navbar />
 				</SessionProvider>
 			</body>
