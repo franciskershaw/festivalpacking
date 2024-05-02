@@ -2,18 +2,18 @@
 
 import { createContext, useContext, useEffect, useReducer } from 'react';
 
+// Types
 type ListState = {
 	festivalName: string;
 };
+type Action = { type: 'SET_FESTIVAL_NAME'; payload: string };
 
 // Initial state
 const initialState: ListState = {
 	festivalName: '',
 };
 
-// Actions
-type Action = { type: 'SET_FESTIVAL_NAME'; payload: string };
-
+// Create context
 const ListContext = createContext<{
 	state: ListState;
 	dispatch: React.Dispatch<Action>;
@@ -32,7 +32,7 @@ function listReducer(state: ListState, action: Action): ListState {
 	}
 }
 
-// Context Provider
+// Provider
 export const ListProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
@@ -49,6 +49,7 @@ export const ListProvider: React.FC<{ children: React.ReactNode }> = ({
 	);
 };
 
+// Hook
 export const useList = () => useContext(ListContext);
 
 export default ListContext;
