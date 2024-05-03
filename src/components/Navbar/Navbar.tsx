@@ -32,14 +32,14 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<nav className=" bg-gray-200 py-6 fixed bottom-0 left-0 flex justify-around items-center w-full">
+		<nav className=" bg-gray-200 py-5 fixed bottom-0 left-0 flex justify-around items-center w-full">
 			<div className="flex flex-col gap-2 items-center justify-center">
-				<FaListCheck size={30} />
+				<FaListCheck size={26} />
 				<span className="text-lg">Packing</span>
 			</div>
 			{session && (
 				<div className="flex flex-col gap-2 items-center justify-center">
-					<FaFloppyDisk size={30} />
+					<FaFloppyDisk size={26} />
 					<span className="text-lg">Saved Lists</span>
 				</div>
 			)}
@@ -49,7 +49,7 @@ const Navbar = () => {
 					onClick={() => signOut()}
 					className="flex flex-col gap-2 items-center justify-center"
 				>
-					<FaArrowRightToBracket size={30} />
+					<FaArrowRightToBracket size={26} />
 					<span className="text-lg">Log Out</span>
 				</button>
 			) : (
@@ -57,7 +57,7 @@ const Navbar = () => {
 					onClick={() => signIn(providers?.google.id)}
 					className="flex flex-col gap-2 items-center justify-center"
 				>
-					<FaArrowRightToBracket size={30} />
+					<FaArrowRightToBracket size={26} />
 					<span className="text-lg">Login</span>
 				</button>
 			)}
