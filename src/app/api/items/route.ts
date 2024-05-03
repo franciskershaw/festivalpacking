@@ -1,5 +1,6 @@
 import connectDB from '@/config/database';
 import Item from '@/models/Item';
+import ItemCategory from '@/models/ItemCategory';
 import getSessionUser from '@/utils/getSessionUser';
 import { ObjectId } from 'mongodb';
 
@@ -38,7 +39,7 @@ export const POST = async (request: Request) => {
 	}
 };
 
-export const GET = async (request: Request) => {
+export const GET = async () => {
 	try {
 		await connectDB();
 
@@ -58,9 +59,15 @@ export const GET = async (request: Request) => {
 			};
 		}
 
-		const items = await Item.find(filter);
+		const items = await Item.find(filter).populate(
+			'category',
+			'name faIcon',
+			ItemCategory,
+		);
 
-		return new Response(JSON.stringify({ items }));
+		return new Response(JSON.stringify({ items }), {
+			status: 200,
+		});
 	} catch (error) {
 		console.log(error);
 		return new Response('Something went wrong', { status: 500 });
