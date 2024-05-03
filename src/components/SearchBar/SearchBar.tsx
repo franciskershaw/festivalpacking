@@ -2,9 +2,11 @@
 
 import { Item } from '@/utils/types';
 
+import SearchResult from './SearchResult';
 import useSearchBar from './useSearchBar';
 
 const SearchBar = ({ allItems }: { allItems: Item[] }) => {
+	console.log(allItems);
 	const { search, setSearch, searchResults } = useSearchBar(allItems);
 
 	return (
@@ -17,11 +19,13 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				onChange={(e) => setSearch(e.target.value)}
 			/>
 			{searchResults.length > 0 && search !== '' && (
-				<div className="absolute left-0 w-full bg-white border border-gray-300 shadow p-1 space-y-0.5 mt-2">
+				<div className="absolute left-0 w-full bg-white border border-gray-300 shadow space-y-2 mt-2">
 					{searchResults.map((item, index) => (
-						<p key={index} className="text-sm p-2 hover:bg-gray-100">
-							{item.name}
-						</p>
+						<SearchResult
+							key={item._id}
+							item={item}
+							border={index < searchResults.length - 1}
+						/>
 					))}
 				</div>
 			)}
