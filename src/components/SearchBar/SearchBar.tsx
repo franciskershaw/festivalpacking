@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-
 import { Item } from '@/utils/types';
 
 import useSearchBar from './useSearchBar';
