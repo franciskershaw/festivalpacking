@@ -20,7 +20,7 @@ const PackingList = () => {
 							header={<CategoryHeader category={category} />}
 							openByDefault
 						>
-							<ul>
+							<ul className="space-y-4">
 								{category.items.map((item) => (
 									<li key={item._id}>
 										<PackingListItem item={item} />
