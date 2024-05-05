@@ -18,7 +18,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				onChange={(e) => setSearch(e.target.value)}
 			/>
 			{searchResults.length > 0 && search !== '' && (
-				<div className="absolute left-0 w-full bg-white border border-gray-300 shadow space-y-2 mt-2">
+				<div className="absolute left-0 w-full bg-white border border-gray-300 shadow mt-2">
 					{searchResults.map((item, index) => (
 						<SearchResult
 							key={item._id}
