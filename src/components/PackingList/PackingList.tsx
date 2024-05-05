@@ -9,7 +9,7 @@ const PackingList = () => {
 	const { categorisedItems } = usePackingList();
 
 	return (
-		<>
+		<div className="mt-20">
 			{categorisedItems.length ? (
 				<Accordion>
 					{categorisedItems.map((category) => (
@@ -29,7 +29,7 @@ const PackingList = () => {
 			) : (
 				<div>No items</div>
 			)}
-		</>
+		</div>
 	);
 };
 

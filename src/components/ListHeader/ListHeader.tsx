@@ -7,10 +7,12 @@ const ListHeader = async () => {
 	const allItems = await getItems();
 
 	return (
-		<header className="relative grid grid-cols-2 gap-6 py-4">
-			<FestivalName />
-			<SearchBar allItems={allItems.items} />
-		</header>
+		<div className="fixed top-0 left-0 px-5 mb-8 bg-white">
+			<header className="relative grid grid-cols-2 gap-6 py-4">
+				<FestivalName />
+				<SearchBar allItems={allItems.items} />
+			</header>
+		</div>
 	);
 };
 

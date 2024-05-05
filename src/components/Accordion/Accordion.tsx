@@ -32,7 +32,9 @@ export const AccordionItem: FC<AccordionItemProps> = ({
 				className={`flex justify-between items-center p-4 cursor-pointer border`}
 				onClick={toggleAccordion}
 			>
-				<div className='font-semibold' onClick={handleHeaderClick}>{header}</div>
+				<div className="font-semibold" onClick={handleHeaderClick}>
+					{header}
+				</div>
 				<motion.div
 					animate={{ rotate: isAccordionOpen ? 180 : 0 }}
 					transition={{ duration: 0.2 }}
