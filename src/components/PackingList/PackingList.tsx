@@ -19,38 +19,40 @@ const PackingList = () => {
 
 	return (
 		<div className="mt-20">
-			<div className="flex justify-between mb-4">
-				<button
-					onClick={() => handleToggleAll(true)}
-					className="border font-bold py-2 px-4 rounded"
-				>
-					Expand All
-				</button>
-				<button
-					onClick={() => handleToggleAll(false)}
-					className="border font-bold py-2 px-4 rounded"
-				>
-					Collapse All
-				</button>
-			</div>
 			{categorisedItems.length ? (
-				<Accordion>
-					{categorisedItems.map((category) => (
-						<AccordionItem
-							key={category._id}
-							header={<CategoryHeader category={category} />}
-							isOpen={expandAll}
+				<>
+					<div className="flex justify-between mb-4">
+						<button
+							onClick={() => handleToggleAll(true)}
+							className="border font-bold py-2 px-4 rounded"
 						>
-							<ul className="space-y-4">
-								{category.items.map((item) => (
-									<li key={item._id}>
-										<PackingListItem item={item} />
-									</li>
-								))}
-							</ul>
-						</AccordionItem>
-					))}
-				</Accordion>
+							Expand All
+						</button>
+						<button
+							onClick={() => handleToggleAll(false)}
+							className="border font-bold py-2 px-4 rounded"
+						>
+							Collapse All
+						</button>
+					</div>
+					<Accordion>
+						{categorisedItems.map((category) => (
+							<AccordionItem
+								key={category._id}
+								header={<CategoryHeader category={category} />}
+								isOpen={expandAll}
+							>
+								<ul className="space-y-4">
+									{category.items.map((item) => (
+										<li key={item._id}>
+											<PackingListItem item={item} />
+										</li>
+									))}
+								</ul>
+							</AccordionItem>
+						))}
+					</Accordion>
+				</>
 			) : (
 				<NoItems />
 			)}
