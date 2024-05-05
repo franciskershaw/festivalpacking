@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 interface CheckboxProps {
 	checkedByDefault?: boolean;
-	onChange?: (checked: boolean) => boolean;
+	onChange?: () => void;
 }
 
 const Checkbox = ({ checkedByDefault = false, onChange }: CheckboxProps) => {
@@ -12,7 +12,7 @@ const Checkbox = ({ checkedByDefault = false, onChange }: CheckboxProps) => {
 
 	const handleClick = () => {
 		setChecked((prev) => !prev);
-		if (onChange) onChange(!checked);
+		if (onChange) onChange();
 	};
 
 	return (

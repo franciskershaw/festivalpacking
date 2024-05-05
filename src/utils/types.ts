@@ -6,6 +6,7 @@ export interface Item {
 	category: Category;
 	approved: boolean;
 	__v: number;
+	obtained?: boolean;
 }
 
 export interface Category {
