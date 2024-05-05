@@ -2,6 +2,7 @@
 
 import CategoryHeader from './CategoryHeader';
 import NoItems from './NoItems';
+import PackingListItem from './PackingListItem';
 import usePackingList from './usePackingList';
 
 import Accordion, { AccordionItem } from '../Accordion/Accordion';
@@ -21,7 +22,9 @@ const PackingList = () => {
 						>
 							<ul>
 								{category.items.map((item) => (
-									<li key={item._id}>{item.name}</li>
+									<li key={item._id}>
+										<PackingListItem item={item} />
+									</li>
 								))}
 							</ul>
 						</AccordionItem>
