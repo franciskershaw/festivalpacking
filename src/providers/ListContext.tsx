@@ -21,9 +21,10 @@ type Action =
 			payload: string;
 	  }
 	| { type: 'ADD_ITEM'; payload: Item }
+	| { type: 'REMOVE_ITEM'; payload: string }
 	| {
 			type: 'TOGGLE_ITEM_OBTAINED';
-			payload: { _id: string };
+			payload: string;
 	  };
 
 // Initial state
@@ -53,11 +54,16 @@ function listReducer(state: ListState, action: Action): ListState {
 			};
 			return { ...state, items: [...state.items, newItem] };
 		}
+		case 'REMOVE_ITEM':
+			return {
+				...state,
+				items: state.items.filter((item) => item._id !== action.payload),
+			};
 		case 'TOGGLE_ITEM_OBTAINED':
 			return {
 				...state,
 				items: state.items.map((item) =>
-					item._id === action.payload._id
+					item._id === action.payload
 						? { ...item, obtained: !item.obtained }
 						: item,
 				),

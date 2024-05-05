@@ -14,13 +14,17 @@ const PackingListItem = ({ item }: { item: Item }) => {
 					onChange={() =>
 						dispatch({
 							type: 'TOGGLE_ITEM_OBTAINED',
-							payload: { _id: item._id },
+							payload: item._id,
 						})
 					}
 				/>
 				<span className="capitalize">{item.name}</span>
 			</div>
-			<Icon name="FaTrashCan" size={20} />
+			<button
+				onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item._id })}
+			>
+				<Icon name="FaTrashCan" size={20} />
+			</button>
 		</div>
 	);
 };
