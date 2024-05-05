@@ -24,6 +24,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 							key={item._id}
 							item={item}
 							border={index < searchResults.length - 1}
+							setSearch={setSearch}
 						/>
 					))}
 				</div>
