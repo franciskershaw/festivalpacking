@@ -1,3 +1,5 @@
+import { IconName } from '@/components/Icon/Icon';
+
 export interface Item {
 	_id: string;
 	name: string;
@@ -9,5 +11,5 @@ export interface Item {
 export interface Category {
 	_id: string;
 	name: string;
-	faIcon: string;
+	faIcon: IconName;
 }
