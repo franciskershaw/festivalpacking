@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -7,18 +7,23 @@ import Icon from '../Icon/Icon';
 interface AccordionItemProps {
 	header: string | ReactNode;
 	children: ReactNode;
-	openByDefault?: boolean;
+	isOpen?: boolean;
 }
 
 export const AccordionItem: FC<AccordionItemProps> = ({
 	header,
 	children,
-	openByDefault = false,
+	isOpen = false,
 }) => {
-	const [isAccordionOpen, setIsAccordionOpen] =
-		useState<boolean>(openByDefault);
+	const [isAccordionOpen, setIsAccordionOpen] = useState<boolean>(isOpen);
 
-	const toggleAccordion = () => setIsAccordionOpen((prev) => !prev);
+	useEffect(() => {
+		setIsAccordionOpen(isOpen);
+	}, [isOpen]);
+
+	const toggleAccordion = () => {
+		setIsAccordionOpen((prev) => !prev);
+	};
 
 	const handleHeaderClick = (
 		event: React.MouseEvent<HTMLDivElement, MouseEvent>,
