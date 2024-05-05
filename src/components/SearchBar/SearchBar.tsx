@@ -6,7 +6,6 @@ import SearchResult from './SearchResult';
 import useSearchBar from './useSearchBar';
 
 const SearchBar = ({ allItems }: { allItems: Item[] }) => {
-	console.log(allItems);
 	const { search, setSearch, searchResults } = useSearchBar(allItems);
 
 	return (

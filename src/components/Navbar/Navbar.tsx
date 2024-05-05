@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FaArrowRightToBracket } from 'react-icons/fa6';
-import { FaListCheck } from 'react-icons/fa6';
-import { FaFloppyDisk } from 'react-icons/fa6';
+import {
+	FaArrowRightToBracket,
+	FaFloppyDisk,
+	FaListCheck,
+} from 'react-icons/fa6';
 
 import {
 	ClientSafeProvider,
