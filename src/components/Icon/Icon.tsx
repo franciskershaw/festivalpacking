@@ -1,7 +1,10 @@
 import {
+	FaArrowRightToBracket,
 	FaBeerMugEmpty,
 	FaBurger,
+	FaFloppyDisk,
 	FaGuitar,
+	FaListCheck,
 	FaMobileScreen,
 	FaPills,
 	FaShirt,
@@ -16,9 +19,12 @@ interface IconProps {
 
 const Icon = ({ name, size }: IconProps) => {
 	const iconMap: { [key in IconName]: React.ComponentType<any> } = {
+		FaArrowRightToBracket,
 		FaBeerMugEmpty,
 		FaBurger,
+		FaFloppyDisk,
 		FaGuitar,
+		FaListCheck,
 		FaMobileScreen,
 		FaPills,
 		FaShirt,
@@ -36,9 +42,12 @@ const Icon = ({ name, size }: IconProps) => {
 };
 
 export type IconName =
+	| 'FaArrowRightToBracket'
 	| 'FaBeerMugEmpty'
 	| 'FaBurger'
+	| 'FaFloppyDisk'
 	| 'FaGuitar'
+	| 'FaListCheck'
 	| 'FaMobileScreen'
 	| 'FaPills'
 	| 'FaShirt'
