@@ -1,6 +1,7 @@
 'use client';
 
 import CategoryHeader from './CategoryHeader';
+import NoItems from './NoItems';
 import usePackingList from './usePackingList';
 
 import Accordion, { AccordionItem } from '../Accordion/Accordion';
@@ -27,7 +28,7 @@ const PackingList = () => {
 					))}
 				</Accordion>
 			) : (
-				<div>No items</div>
+				<NoItems />
 			)}
 		</div>
 	);
