@@ -16,6 +16,10 @@ const ListSchema = new Schema({
 		required: true,
 		default: [],
 	},
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+	},
 });
 
 const List = models.List || model('List', ListSchema);
