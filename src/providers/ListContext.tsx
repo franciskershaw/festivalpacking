@@ -14,16 +14,27 @@ import { Item } from '@/utils/types';
 type ListState = {
 	festivalName: string;
 	items: Item[];
+	festivalId: string;
 };
 type Action =
 	| {
 			type: 'SET_FESTIVAL_NAME';
 			payload: string;
 	  }
-	| { type: 'ADD_ITEM'; payload: Item }
-	| { type: 'REMOVE_ITEM'; payload: string }
+	| {
+			type: 'ADD_ITEM';
+			payload: Item;
+	  }
+	| {
+			type: 'REMOVE_ITEM';
+			payload: string;
+	  }
 	| {
 			type: 'TOGGLE_ITEM_OBTAINED';
+			payload: string;
+	  }
+	| {
+			type: 'SET_LIST_ID';
 			payload: string;
 	  };
 
@@ -31,6 +42,7 @@ type Action =
 const initialState: ListState = {
 	festivalName: '',
 	items: [],
+	festivalId: '',
 };
 
 // Create context
@@ -68,6 +80,8 @@ function listReducer(state: ListState, action: Action): ListState {
 						: item,
 				),
 			};
+		case 'SET_LIST_ID':
+			return { ...state, festivalId: action.payload };
 		default:
 			return state;
 	}
