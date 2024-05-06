@@ -11,6 +11,7 @@ import Accordion, { AccordionItem } from '../Accordion/Accordion';
 
 const PackingList = () => {
 	const [expandAll, setExpandAll] = useState(true);
+
 	const { categorisedItems } = usePackingList();
 
 	const handleToggleAll = (expand: boolean) => {
@@ -21,7 +22,7 @@ const PackingList = () => {
 		<div className="mt-20">
 			{categorisedItems.length ? (
 				<>
-					<div className="flex justify-between mb-4">
+					<div className="flex justify-between items-center mb-4">
 						<button
 							onClick={() => handleToggleAll(true)}
 							className="border font-bold py-2 px-4 rounded"
