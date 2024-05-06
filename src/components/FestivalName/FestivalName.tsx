@@ -1,6 +1,7 @@
 'use client';
 
 import { useList } from '@/providers/ListContext';
+import { createList } from '@/server/actions';
 import { useSession } from 'next-auth/react';
 
 import Icon from '../Icon/Icon';
@@ -22,7 +23,12 @@ const FestivalName = () => {
 			/>
 
 			{session && state.festivalName.trim() && !state.festivalId && (
-				<button className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 pr-2">
+				<button
+					onClick={() =>
+						createList({ name: state.festivalName, items: state.items })
+					}
+					className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 pr-2"
+				>
 					<Icon name="FaFloppyDisk" size={20} />
 					<span className="sr-only">Save List</span>
 				</button>
