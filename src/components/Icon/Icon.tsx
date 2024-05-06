@@ -2,11 +2,13 @@ import {
 	FaArrowRightToBracket,
 	FaBeerMugEmpty,
 	FaBurger,
+	FaCheck,
 	FaChevronDown,
 	FaFloppyDisk,
 	FaGuitar,
 	FaListCheck,
 	FaMobileScreen,
+	FaPenToSquare,
 	FaPills,
 	FaShirt,
 	FaTent,
@@ -25,10 +27,12 @@ const Icon = ({ name, size }: IconProps) => {
 		FaChevronDown,
 		FaBeerMugEmpty,
 		FaBurger,
+		FaCheck,
 		FaFloppyDisk,
 		FaGuitar,
 		FaListCheck,
 		FaMobileScreen,
+		FaPenToSquare,
 		FaPills,
 		FaShirt,
 		FaTent,
@@ -49,11 +53,13 @@ export type IconName =
 	| 'FaArrowRightToBracket'
 	| 'FaChevronDown'
 	| 'FaBeerMugEmpty'
+	| 'FaCheck'
 	| 'FaBurger'
 	| 'FaFloppyDisk'
 	| 'FaGuitar'
 	| 'FaListCheck'
 	| 'FaMobileScreen'
+	| 'FaPenToSquare'
 	| 'FaPills'
 	| 'FaShirt'
 	| 'FaTent'
