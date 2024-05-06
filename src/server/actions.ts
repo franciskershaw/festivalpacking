@@ -17,18 +17,17 @@ export async function createList({
 }: {
 	name: string;
 	items: Item[];
-}) {
+}): Promise<{ success: boolean; message: string; data: string | null }> {
 	try {
 		await connectDB();
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return new Response(
-				JSON.stringify({
-					message: 'You must be logged in to create a new list',
-				}),
-				{ status: 401 },
-			);
+			return {
+				success: false,
+				message: 'You must be logged in to create a new list',
+				data: null,
+			};
 		}
 
 		const formattedItems = items.map((item: Item) => ({
@@ -44,7 +43,11 @@ export async function createList({
 
 		await newList.save();
 
-		return { data: JSON.stringify(newList) };
+		return {
+			success: true,
+			message: 'List created successfully',
+			data: JSON.stringify(newList),
+		};
 	} catch (error) {
 		console.log(error);
 		throw new Error('Something went wrong');

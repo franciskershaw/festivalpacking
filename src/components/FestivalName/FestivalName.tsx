@@ -10,6 +10,18 @@ const FestivalName = () => {
 	const { dispatch, state } = useList();
 	const { data: session } = useSession();
 
+	const onClick = async () => {
+		const { data } = await createList({
+			name: state.festivalName,
+			items: state.items,
+		});
+
+		if (data) {
+			const parsed = JSON.parse(data);
+			dispatch({ type: 'SET_LIST_ID', payload: parsed._id });
+		}
+	};
+
 	return (
 		<div className="relative w-full max-w-sm">
 			<input
@@ -24,9 +36,7 @@ const FestivalName = () => {
 
 			{session && state.festivalName.trim() && !state.festivalId && (
 				<button
-					onClick={() =>
-						createList({ name: state.festivalName, items: state.items })
-					}
+					onClick={onClick}
 					className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 pr-2"
 				>
 					<Icon name="FaFloppyDisk" size={20} />
