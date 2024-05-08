@@ -55,7 +55,7 @@ const PackingList = () => {
 					</Accordion>
 				</>
 			) : (
-				<NoItems />
+				<NoItems main='Your Festival Packing list' sub='Use the search bar to add items to your list' />
 			)}
 		</div>
 	);

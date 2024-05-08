@@ -1,9 +1,8 @@
-import Link from 'next/link';
-
 import { getUserLists } from '@/server/actions';
 import { List } from '@/utils/types';
 
 import Icon from '@/components/Icon/Icon';
+import NoItems from '@/components/PackingList/NoItems';
 
 import EditList from './client/EditList';
 
@@ -16,9 +15,10 @@ const ListsPage = async () => {
 		<div className="pt-6 space-y-4">
 			<h1 className="text-2xl">Saved lists</h1>
 			{data?.length === 0 ? (
-				<div className="flex flex-col items-center justify-center h-40">
-					<h2>No lists saved yet</h2>
-				</div>
+				<NoItems
+					main="No lists saved yet"
+					sub="Go to packing page to add your first list!"
+				/>
 			) : (
 				data?.map((list: List) => (
 					<div
