@@ -9,7 +9,6 @@ import EditList from './client/EditList';
 const ListsPage = async () => {
 	const res = await getUserLists();
 	const data = res.data;
-	console.log(data.length === 0);
 
 	return (
 		<div className="pt-6 space-y-4">

@@ -68,11 +68,9 @@ export async function getItems() {
 			};
 		}
 
-		const items = await Item.find(filter).populate(
-			'category',
-			'name faIcon',
-			ItemCategory,
-		);
+		const items = await Item.find(filter)
+			.populate('category', 'name faIcon', ItemCategory)
+			.lean();
 
 		return {
 			success: true,

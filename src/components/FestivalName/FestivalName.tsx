@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { useList } from '@/providers/ListContext';
 import { createList } from '@/server/lists';
+import { updateName } from '@/server/lists';
 import { useSession } from 'next-auth/react';
 
 import Icon from '../Icon/Icon';
@@ -14,7 +15,6 @@ const FestivalName = () => {
 	const [completed, setCompleted] = useState(false);
 
 	const onClick = async () => {
-		// Call the create list action
 		const { data } = await createList({
 			name: state.festivalName,
 			items: state.items,
@@ -24,10 +24,15 @@ const FestivalName = () => {
 			const parsed = JSON.parse(data);
 			dispatch({ type: 'SET_LIST_ID', payload: parsed._id });
 
-			// Change to tick icon and remove after 3 seconds
 			setCompleted(true);
 			setTimeout(() => setCompleted(false), 2000);
 		}
+	};
+
+	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+		dispatch({ type: 'SET_FESTIVAL_NAME', payload: e.target.value });
+		// debounced request to update the database
+		updateName({ _id: state.festivalId, name: e.target.value });
 	};
 
 	return (
@@ -37,9 +42,7 @@ const FestivalName = () => {
 				type="text"
 				placeholder="New Festival"
 				value={state.festivalName}
-				onChange={(e) =>
-					dispatch({ type: 'SET_FESTIVAL_NAME', payload: e.target.value })
-				}
+				onChange={onChange}
 			/>
 
 			{session && state.festivalName.trim() && !state.festivalId && (

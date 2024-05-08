@@ -5,13 +5,7 @@ import Item from '@/models/Item';
 import ItemCategory from '@/models/ItemCategory';
 import List from '@/models/List';
 import getSessionUser from '@/utils/getSessionUser';
-import { Category, Item as ItemType } from '@/utils/types';
-
-// export async function getItems() {
-// 	const res = await fetch('http://localhost:3000/api/items');
-// 	const data = await res.json();
-// 	return data;
-// }
+import { Category, Item as ItemType, List as ListType } from '@/utils/types';
 
 export async function createList({
 	name,
@@ -109,4 +103,42 @@ export async function getUserLists() {
 		console.log(error);
 		throw new Error('Something went wrong');
 	}
+}
+
+export async function updateName({ _id, name }: { _id: string; name: string }) {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+		console.log(sessionUser);
+
+		if (!sessionUser || !sessionUser.user) {
+			return {
+				success: false,
+				message: 'You must be logged in to edit a list',
+				data: null,
+			};
+		}
+
+		const { data: lists } = await getUserLists();
+
+		if (!lists.find((list: ListType) => list._id === _id)) {
+			return {
+				success: false,
+				message: 'You must be the creator of the list to edit it',
+				data: null,
+			};
+		}
+
+		const updatedList = await List.findByIdAndUpdate(
+			_id,
+			{ name },
+			{ new: true },
+		);
+
+		return {
+			success: true,
+			message: 'List updated',
+			data: JSON.stringify(updatedList),
+		};
+	} catch (error) {}
 }
