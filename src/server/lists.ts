@@ -109,7 +109,6 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 	try {
 		await connectDB();
 		const sessionUser = await getSessionUser();
-		console.log(sessionUser);
 
 		if (!sessionUser || !sessionUser.user) {
 			return {
@@ -134,6 +133,8 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 			{ name },
 			{ new: true },
 		);
+
+		await getUserLists();
 
 		return {
 			success: true,
