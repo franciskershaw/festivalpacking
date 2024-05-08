@@ -30,7 +30,7 @@ const ListsPage = async () => {
 
 					{/* Buttons */}
 					<div className="flex items-center gap-4">
-						<EditList />
+						<EditList list={list} />
 						<Icon name="FaTrashCan" size={20} />
 					</div>
 				</div>

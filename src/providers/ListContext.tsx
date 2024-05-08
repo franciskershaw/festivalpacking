@@ -8,7 +8,7 @@ import {
 	useReducer,
 } from 'react';
 
-import { Item } from '@/utils/types';
+import { Item, List } from '@/utils/types';
 
 // Types
 type ListState = {
@@ -36,6 +36,10 @@ type Action =
 	| {
 			type: 'SET_LIST_ID';
 			payload: string;
+	  }
+	| {
+			type: 'SET_LIST';
+			payload: List;
 	  };
 
 // Initial state
@@ -49,9 +53,11 @@ const initialState: ListState = {
 const ListContext = createContext<{
 	state: ListState;
 	dispatch: Dispatch<Action>;
+	setList: (list: List) => void;
 }>({
 	state: initialState,
 	dispatch: () => null,
+	setList: () => null,
 });
 
 // Reducer
@@ -82,6 +88,12 @@ function listReducer(state: ListState, action: Action): ListState {
 			};
 		case 'SET_LIST_ID':
 			return { ...state, festivalId: action.payload };
+		case 'SET_LIST':
+			return {
+				festivalName: action.payload.name,
+				items: action.payload.items,
+				festivalId: action.payload._id,
+			};
 		default:
 			return state;
 	}
@@ -97,8 +109,12 @@ export const ListProvider: React.FC<{ children: React.ReactNode }> = ({
 		console.log('context state', state);
 	}, [state]);
 
+	const setList = (list: List) => {
+		dispatch({ type: 'SET_LIST', payload: list });
+	};
+
 	return (
-		<ListContext.Provider value={{ state, dispatch }}>
+		<ListContext.Provider value={{ state, dispatch, setList }}>
 			{children}
 		</ListContext.Provider>
 	);
