@@ -1,13 +1,36 @@
 import { getUserLists } from '@/server/actions';
 import { List } from '@/utils/types';
 
+import Icon from '@/components/Icon/Icon';
+
 const ListsPage = async () => {
 	const { data } = await getUserLists();
 
 	return (
-		<div className="border pt-6">
-			<h1 className="text-xl">Saved lists</h1>
-			{data?.map((list: List) => <p key={list._id}>{list.name}</p>)}
+		<div className="pt-6 space-y-4">
+			<h1 className="text-2xl">Saved lists</h1>
+			{data?.map((list: List) => (
+				<div
+					className="flex items-center justify-between border-0 border-b-2 pb-2"
+					key={list._id}
+				>
+					<div className="space-y-1">
+						<h2 className="text-lg">{list.name}</h2>
+						<h3 className="text-xs">
+							Created: {list.createdAt.toLocaleDateString()}
+						</h3>
+						<h3 className="text-xs">
+							Updated: {list.updatedAt.toLocaleDateString()}
+						</h3>
+					</div>
+
+					{/* Buttons */}
+					<div className="flex items-center gap-4">
+						<Icon name="FaPenToSquare" size={20} />
+						<Icon name="FaTrashCan" size={20} />
+					</div>
+				</div>
+			))}
 		</div>
 	);
 };
