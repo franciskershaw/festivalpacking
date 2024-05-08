@@ -9,6 +9,15 @@ export interface Item {
 	obtained?: boolean;
 }
 
+export interface List {
+	_id: string;
+	name: string;
+	items: Item[];
+	createdBy: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 export interface Category {
 	_id: string;
 	name: string;

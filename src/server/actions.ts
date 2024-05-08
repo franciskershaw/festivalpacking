@@ -53,3 +53,28 @@ export async function createList({
 		throw new Error('Something went wrong');
 	}
 }
+
+export async function getUserLists() {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+
+		if (!sessionUser || !sessionUser.user) {
+			return {
+				success: false,
+				message: 'You must be logged in to retrieve saved lists',
+				data: null,
+			};
+		}
+
+		const lists = await List.find({ createdBy: sessionUser.user._id });
+		return {
+			success: true,
+			message: 'Found lists',
+			data: lists,
+		};
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong');
+	}
+}
