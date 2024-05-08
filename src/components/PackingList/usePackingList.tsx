@@ -9,20 +9,20 @@ const usePackingList = () => {
 	const { state } = useList();
 
 	const categorisedItems = useMemo(() => {
-		const grouped = state.items.reduce(
+		const grouped = state?.items?.reduce(
 			(acc, item) => {
 				const category = item.category;
 
-				if (!acc[category._id]) {
-					acc[category._id] = {
-						_id: category._id,
-						name: category.name,
-						faIcon: category.faIcon,
+				if (!acc[category?._id]) {
+					acc[category?._id] = {
+						_id: category?._id,
+						name: category?.name,
+						faIcon: category?.faIcon,
 						items: [],
 					};
 				}
 
-				acc[category._id].items.push(item);
+				acc[category?._id].items.push(item);
 				return acc;
 			},
 			{} as Record<
@@ -32,7 +32,7 @@ const usePackingList = () => {
 		);
 
 		return Object.values(grouped).map((category) => {
-			category.items.sort((a, b) => a.name.localeCompare(b.name));
+			category?.items?.sort((a, b) => a?.name?.localeCompare(b?.name));
 			return category;
 		});
 	}, [state.items]);

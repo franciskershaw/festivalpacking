@@ -10,7 +10,10 @@ const ListSchema = new Schema(
 		items: {
 			type: [
 				{
-					_id: Schema.Types.ObjectId,
+					_id: {
+						type: Schema.Types.ObjectId,
+						ref: 'Item',
+					},
 					obtained: Boolean,
 				},
 			],
