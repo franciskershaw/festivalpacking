@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import Link from 'next/link';
+
 import {
 	ClientSafeProvider,
 	LiteralUnion,
@@ -32,15 +34,21 @@ const Navbar = () => {
 
 	return (
 		<nav className=" bg-gray-200 py-5 fixed bottom-0 left-0 flex justify-around items-center w-full">
-			<div className="flex flex-col gap-2 items-center justify-center">
+			<Link
+				href="/"
+				className="flex flex-col gap-2 items-center justify-center"
+			>
 				<Icon name="FaListCheck" size={26} />
 				<span className="text-lg">Packing</span>
-			</div>
+			</Link>
 			{session && (
-				<div className="flex flex-col gap-2 items-center justify-center">
+				<Link
+					href="/lists"
+					className="flex flex-col gap-2 items-center justify-center"
+				>
 					<Icon name="FaFloppyDisk" size={26} />
 					<span className="text-lg">Saved Lists</span>
-				</div>
+				</Link>
 			)}
 
 			{session ? (
