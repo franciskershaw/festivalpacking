@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { useList } from '@/providers/ListContext';
-import { createList } from '@/server/actions';
+import { createList } from '@/server/lists';
 import { useSession } from 'next-auth/react';
 
 import Icon from '../Icon/Icon';

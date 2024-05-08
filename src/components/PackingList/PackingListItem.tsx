@@ -17,6 +17,7 @@ const PackingListItem = ({ item }: { item: Item }) => {
 							payload: item._id,
 						})
 					}
+					checkedByDefault={item.obtained}
 				/>
 				<span className="capitalize">{item.name}</span>
 			</div>

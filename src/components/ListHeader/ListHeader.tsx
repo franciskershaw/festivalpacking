@@ -1,4 +1,4 @@
-import { getItems } from '@/server/actions';
+import { getItems } from '@/server/lists';
 
 import FestivalName from '../FestivalName/FestivalName';
 import SearchBar from '../SearchBar/SearchBar';

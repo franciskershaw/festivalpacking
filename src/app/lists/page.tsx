@@ -1,4 +1,4 @@
-import { getUserLists } from '@/server/actions';
+import { getUserLists } from '@/server/lists';
 import { List } from '@/utils/types';
 
 import Icon from '@/components/Icon/Icon';
