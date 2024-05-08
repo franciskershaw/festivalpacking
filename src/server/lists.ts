@@ -7,11 +7,11 @@ import List from '@/models/List';
 import getSessionUser from '@/utils/getSessionUser';
 import { Category, Item as ItemType } from '@/utils/types';
 
-export async function getItems() {
-	const res = await fetch('http://localhost:3000/api/items');
-	const data = await res.json();
-	return data;
-}
+// export async function getItems() {
+// 	const res = await fetch('http://localhost:3000/api/items');
+// 	const data = await res.json();
+// 	return data;
+// }
 
 export async function createList({
 	name,
@@ -102,7 +102,7 @@ export async function getUserLists() {
 		});
 		return {
 			success: true,
-			message: 'Found lists',
+			message: 'success',
 			data: JSON.parse(JSON.stringify(formattedLists)),
 		};
 	} catch (error) {

@@ -1,25 +1,31 @@
+'use server';
+
 import connectDB from '@/config/database';
 import Item from '@/models/Item';
 import ItemCategory from '@/models/ItemCategory';
 import getSessionUser from '@/utils/getSessionUser';
+import { Category } from '@/utils/types';
 import { ObjectId } from 'mongodb';
 
-export const POST = async (request: Request) => {
+export async function createItem({
+	name,
+	category,
+}: {
+	name: string;
+	category: Category;
+}) {
 	try {
 		await connectDB();
 
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return new Response(
-				JSON.stringify({
-					message: 'You must be logged in to create a new item',
-				}),
-				{ status: 401 },
-			);
+			return {
+				success: false,
+				message: 'You must be logged in to create a new item',
+				data: null,
+			};
 		}
-
-		const { name, category } = await request.json();
 
 		const newItem = new Item({
 			name,
@@ -29,17 +35,20 @@ export const POST = async (request: Request) => {
 		});
 
 		await newItem.save();
+		await getItems();
 
-		return new Response(JSON.stringify({ newItem }), {
-			status: 200,
-		});
+		return {
+			success: true,
+			message: 'List created successfully',
+			data: JSON.stringify(newItem),
+		};
 	} catch (error) {
 		console.log(error);
-		return new Response('Something went wrong', { status: 500 });
+		throw new Error('Something went wrong');
 	}
-};
+}
 
-export const GET = async () => {
+export async function getItems() {
 	try {
 		await connectDB();
 
@@ -65,11 +74,10 @@ export const GET = async () => {
 			ItemCategory,
 		);
 
-		return new Response(JSON.stringify({ items }), {
-			status: 200,
-		});
-	} catch (error) {
-		console.log(error);
-		return new Response('Something went wrong', { status: 500 });
-	}
-};
+		return {
+			success: true,
+			message: 'success',
+			data: JSON.parse(JSON.stringify(items)),
+		};
+	} catch (error) {}
+}

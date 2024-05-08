@@ -1,4 +1,4 @@
-import { getItems } from '@/server/lists';
+import { getItems } from '@/server/items';
 
 import FestivalName from '../FestivalName/FestivalName';
 import SearchBar from '../SearchBar/SearchBar';
@@ -10,7 +10,7 @@ const ListHeader = async () => {
 		<div className="fixed top-0 left-0 px-5 mb-8 bg-white">
 			<header className="relative grid grid-cols-2 gap-6 py-4">
 				<FestivalName />
-				<SearchBar allItems={allItems.items} />
+				<SearchBar allItems={allItems?.data} />
 			</header>
 		</div>
 	);
