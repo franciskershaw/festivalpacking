@@ -1,7 +1,11 @@
+import Link from 'next/link';
+
 import { getUserLists } from '@/server/actions';
 import { List } from '@/utils/types';
 
 import Icon from '@/components/Icon/Icon';
+
+import EditList from './client/EditList';
 
 const ListsPage = async () => {
 	const { data } = await getUserLists();
@@ -26,7 +30,7 @@ const ListsPage = async () => {
 
 					{/* Buttons */}
 					<div className="flex items-center gap-4">
-						<Icon name="FaPenToSquare" size={20} />
+						<EditList />
 						<Icon name="FaTrashCan" size={20} />
 					</div>
 				</div>
