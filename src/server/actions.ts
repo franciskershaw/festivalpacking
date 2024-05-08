@@ -42,6 +42,7 @@ export async function createList({
 		});
 
 		await newList.save();
+		await getUserLists();
 
 		return {
 			success: true,
@@ -71,7 +72,7 @@ export async function getUserLists() {
 		return {
 			success: true,
 			message: 'Found lists',
-			data: lists,
+			data: JSON.parse(JSON.stringify(lists)),
 		};
 	} catch (error) {
 		console.log(error);

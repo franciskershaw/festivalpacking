@@ -8,7 +8,8 @@ import Icon from '@/components/Icon/Icon';
 import EditList from './client/EditList';
 
 const ListsPage = async () => {
-	const { data } = await getUserLists();
+	const res = await getUserLists();
+	const data = JSON.parse(JSON.stringify(res.data));
 
 	return (
 		<div className="pt-6 space-y-4">
@@ -21,10 +22,10 @@ const ListsPage = async () => {
 					<div className="space-y-1">
 						<h2 className="text-lg">{list.name}</h2>
 						<h3 className="text-xs">
-							Created: {list.createdAt.toLocaleDateString()}
+							Created: {new Date(list.createdAt).toLocaleDateString()}
 						</h3>
 						<h3 className="text-xs">
-							Updated: {list.updatedAt.toLocaleDateString()}
+							Updated: {new Date(list.updatedAt).toLocaleDateString()}
 						</h3>
 					</div>
 
