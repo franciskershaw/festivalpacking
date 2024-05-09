@@ -134,8 +134,6 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 			{ new: true },
 		);
 
-		await getUserLists();
-
 		return {
 			success: true,
 			message: 'List updated',

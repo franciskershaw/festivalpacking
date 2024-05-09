@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react';
 import { useList } from '@/providers/ListContext';
 import { createList } from '@/server/lists';
 import { updateName } from '@/server/lists';
+import { useDebouncedCallback } from '@/utils/useDebouncedCallback';
 import { useSession } from 'next-auth/react';
 
 import Icon from '../Icon/Icon';
@@ -13,6 +14,13 @@ const FestivalName = () => {
 	const { dispatch, state } = useList();
 	const { data: session } = useSession();
 	const [completed, setCompleted] = useState(false);
+
+	const debouncedUpdateName = useDebouncedCallback(
+		(id: string, name: string) => {
+			updateName({ _id: id, name });
+		},
+		500,
+	);
 
 	const onClick = async () => {
 		const { data } = await createList({
@@ -31,8 +39,10 @@ const FestivalName = () => {
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch({ type: 'SET_FESTIVAL_NAME', payload: e.target.value });
-		// debounced request to update the database
-		updateName({ _id: state.festivalId, name: e.target.value });
+
+		if (session && state.festivalId) {
+			debouncedUpdateName(state.festivalId, e.target.value);
+		}
 	};
 
 	return (
