@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import connectDB from '@/config/database';
 import Item from '@/models/Item';
 import ItemCategory from '@/models/ItemCategory';
@@ -38,7 +40,7 @@ export async function createList({
 		});
 
 		await newList.save();
-		await getUserLists();
+		revalidatePath('/lists');
 
 		return {
 			success: true,
@@ -133,6 +135,8 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 			{ name },
 			{ new: true },
 		);
+
+		revalidatePath('/lists');
 
 		return {
 			success: true,
