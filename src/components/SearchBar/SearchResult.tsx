@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { useList } from '@/providers/ListContext';
-import { addItem } from '@/server/lists';
+import { addItemToList } from '@/server/lists';
 import { Item } from '@/utils/types';
 
 import Icon from '../Icon/Icon';
@@ -20,7 +20,7 @@ const SearchResult = ({
 		dispatch({ type: 'ADD_ITEM', payload: item });
 		setSearch('');
 		if (state.festivalId) {
-			await addItem({ listId: state.festivalId, itemId: item._id });
+			await addItemToList({ listId: state.festivalId, itemId: item._id });
 		}
 	};
 	return (

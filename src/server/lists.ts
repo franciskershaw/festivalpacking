@@ -136,7 +136,7 @@ interface ListItem {
 	obtained: boolean;
 }
 
-export async function addItem({
+export async function addItemToList({
 	listId,
 	itemId,
 }: {
@@ -179,6 +179,57 @@ export async function addItem({
 		return {
 			success: true,
 			message: 'List updated',
+			data: JSON.stringify(list),
+		};
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong');
+	}
+}
+
+export async function removeItemFromList({
+	listId,
+	itemId,
+}: {
+	listId: string;
+	itemId: string;
+}) {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+
+		if (!sessionUser || !sessionUser.user) {
+			throw new Error('You must be logged in to edit a list');
+		}
+
+		const list = await List.findById(listId);
+
+		if (list.createdBy.toString() !== sessionUser.user._id) {
+			throw new Error('You must be the creator of the list to edit it');
+		}
+
+		const listItems: ListItem[] = list.items as ListItem[];
+		const itemInArray = listItems.some(
+			(item) => item._id.toString() === itemId,
+		);
+
+		if (!itemInArray) {
+			return {
+				success: false,
+				message: 'Item not in list',
+				data: null,
+			};
+		}
+
+		list.items = listItems.filter((item) => item._id.toString() !== itemId);
+
+		await list.save();
+
+		revalidatePath('/lists');
+
+		return {
+			success: true,
+			message: 'Item removed from list',
 			data: JSON.stringify(list),
 		};
 	} catch (error) {
