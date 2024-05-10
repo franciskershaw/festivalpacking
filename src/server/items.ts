@@ -20,11 +20,7 @@ export async function createItem({
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return {
-				success: false,
-				message: 'You must be logged in to create a new item',
-				data: null,
-			};
+			throw new Error('You must be logged in to edit a list');
 		}
 
 		const newItem = new Item({
@@ -44,7 +40,6 @@ export async function createItem({
 		};
 	} catch (error) {
 		console.log(error);
-		throw new Error('Something went wrong');
 	}
 }
 
@@ -77,5 +72,7 @@ export async function getItems() {
 			message: 'success',
 			data: JSON.parse(JSON.stringify(items)),
 		};
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 }
