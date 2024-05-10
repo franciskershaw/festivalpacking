@@ -1,5 +1,5 @@
 import { useList } from '@/providers/ListContext';
-import { removeItemFromList } from '@/server/lists';
+import { removeItemFromList, toggleItemObtainedInList } from '@/server/lists';
 import { Item } from '@/utils/types';
 
 import Checkbox from '../Checkbox/Checkbox';
@@ -15,18 +15,24 @@ const PackingListItem = ({ item }: { item: Item }) => {
 			await removeItemFromList({ itemId: item._id, listId: state.festivalId });
 	};
 
+	const onClickCheckbox = async () => {
+		dispatch({
+			type: 'TOGGLE_ITEM_OBTAINED',
+			payload: item._id,
+		});
+
+		if (state.festivalId) {
+			await toggleItemObtainedInList({
+				itemId: item._id,
+				listId: state.festivalId,
+			});
+		}
+	};
+
 	return (
 		<div className="flex items-center justify-between">
 			<div className="flex items-center gap-4">
-				<Checkbox
-					onChange={() =>
-						dispatch({
-							type: 'TOGGLE_ITEM_OBTAINED',
-							payload: item._id,
-						})
-					}
-					checkedByDefault={item.obtained}
-				/>
+				<Checkbox onChange={onClickCheckbox} checkedByDefault={item.obtained} />
 				<span className="capitalize">{item.name}</span>
 			</div>
 			<button onClick={onRemoveItem}>

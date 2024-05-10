@@ -108,6 +108,9 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 		}
 
 		const list = await List.findById(_id);
+		if (!list) {
+			throw new Error('List not found');
+		}
 
 		if (list.createdBy.toString() !== sessionUser.user._id) {
 			throw new Error('You must be the creator of the list to edit it');
@@ -152,6 +155,9 @@ export async function addItemToList({
 		}
 
 		const list = await List.findById(listId);
+		if (!list) {
+			throw new Error('List not found');
+		}
 
 		if (list.createdBy.toString() !== sessionUser.user._id) {
 			throw new Error('You must be the creator of the list to edit it');
@@ -183,7 +189,6 @@ export async function addItemToList({
 		};
 	} catch (error) {
 		console.log(error);
-		throw new Error('Something went wrong');
 	}
 }
 
@@ -203,6 +208,9 @@ export async function removeItemFromList({
 		}
 
 		const list = await List.findById(listId);
+		if (!list) {
+			throw new Error('List not found');
+		}
 
 		if (list.createdBy.toString() !== sessionUser.user._id) {
 			throw new Error('You must be the creator of the list to edit it');
@@ -234,6 +242,57 @@ export async function removeItemFromList({
 		};
 	} catch (error) {
 		console.log(error);
-		throw new Error('Something went wrong');
+	}
+}
+
+export async function toggleItemObtainedInList({
+	listId,
+	itemId,
+}: {
+	listId: string;
+	itemId: string;
+}) {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+
+		if (!sessionUser || !sessionUser.user) {
+			throw new Error('You must be logged in to edit a list');
+		}
+
+		const list = await List.findById(listId);
+		if (!list) {
+			throw new Error('List not found');
+		}
+
+		if (list.createdBy.toString() !== sessionUser.user._id) {
+			throw new Error('You must be the creator of the list to edit it');
+		}
+
+		const listItems: ListItem[] = list.items as ListItem[];
+		const itemIndex = listItems.findIndex(
+			(item) => item._id.toString() === itemId,
+		);
+
+		if (itemIndex === -1) {
+			return {
+				success: false,
+				message: 'Item not found in list',
+				data: null,
+			};
+		}
+
+		listItems[itemIndex].obtained = !listItems[itemIndex].obtained;
+		await list.save();
+
+		revalidatePath('/lists');
+
+		return {
+			success: true,
+			message: `Item ${listItems[itemIndex].obtained ? 'obtained' : 'not obtained'}`,
+			data: JSON.stringify(list),
+		};
+	} catch (error) {
+		console.log(error);
 	}
 }
