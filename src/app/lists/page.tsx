@@ -8,7 +8,7 @@ import EditList from './client/EditList';
 
 const ListsPage = async () => {
 	const res = await getUserLists();
-	const data = res.data;
+	const data = res?.data;
 
 	return (
 		<div className="pt-6 space-y-4">

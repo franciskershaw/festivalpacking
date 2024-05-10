@@ -23,10 +23,12 @@ const FestivalName = () => {
 	);
 
 	const onClick = async () => {
-		const { data } = await createList({
+		const res = await createList({
 			name: state.festivalName,
 			items: state.items,
 		});
+
+		const data = res?.data;
 
 		if (data) {
 			const parsed = JSON.parse(data);

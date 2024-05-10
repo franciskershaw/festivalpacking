@@ -15,17 +15,13 @@ export async function createList({
 }: {
 	name: string;
 	items: ItemType[];
-}): Promise<{ success: boolean; message: string; data: string | null }> {
+}) {
 	try {
 		await connectDB();
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return {
-				success: false,
-				message: 'You must be logged in to create a new list',
-				data: null,
-			};
+			throw new Error('You must be logged in to edit a list');
 		}
 
 		const formattedItems = items.map((item: ItemType) => ({
@@ -49,7 +45,6 @@ export async function createList({
 		};
 	} catch (error) {
 		console.log(error);
-		throw new Error('Something went wrong');
 	}
 }
 
@@ -70,12 +65,9 @@ export async function getUserLists() {
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return {
-				success: false,
-				message: 'You must be logged in to retrieve saved lists',
-				data: null,
-			};
+			throw new Error('You must be logged in to edit a list');
 		}
+
 		const lists = await List.find({ createdBy: sessionUser.user._id })
 			.populate({
 				path: 'items._id',
@@ -103,7 +95,6 @@ export async function getUserLists() {
 		};
 	} catch (error) {
 		console.log(error);
-		throw new Error('Something went wrong');
 	}
 }
 
@@ -113,21 +104,13 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			return {
-				success: false,
-				message: 'You must be logged in to edit a list',
-				data: null,
-			};
+			throw new Error('You must be logged in to edit a list');
 		}
 
-		const { data: lists } = await getUserLists();
+		const list = await List.findById(_id);
 
-		if (!lists.find((list: ListType) => list._id === _id)) {
-			return {
-				success: false,
-				message: 'You must be the creator of the list to edit it',
-				data: null,
-			};
+		if (list.createdBy.toString() !== sessionUser.user._id) {
+			throw new Error('You must be the creator of the list to edit it');
 		}
 
 		const updatedList = await List.findByIdAndUpdate(
@@ -143,5 +126,35 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 			message: 'List updated',
 			data: JSON.stringify(updatedList),
 		};
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export async function addItem({
+	listId,
+	itemId,
+}: {
+	listId: string;
+	itemId: string;
+}) {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+
+		if (!sessionUser || !sessionUser.user) {
+			throw new Error('You must be logged in to edit a list');
+		}
+
+		const list = await List.findById(listId);
+
+		if (list.createdBy.toString() !== sessionUser.user._id) {
+			throw new Error('You must be the creator of the list to edit it');
+		}
+
+		console.log;
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong');
+	}
 }
