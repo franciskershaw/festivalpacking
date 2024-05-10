@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { useList } from '@/providers/ListContext';
+import { addItem } from '@/server/lists';
 import { Item } from '@/utils/types';
 
 import Icon from '../Icon/Icon';
@@ -14,10 +15,13 @@ const SearchResult = ({
 	border: boolean;
 	setSearch: Dispatch<SetStateAction<string>>;
 }) => {
-	const { dispatch } = useList();
-	const onClick = () => {
+	const { dispatch, state } = useList();
+	const onClick = async () => {
 		dispatch({ type: 'ADD_ITEM', payload: item });
 		setSearch('');
+		if (state.festivalId) {
+			await addItem({ listId: state.festivalId, itemId: item._id });
+		}
 	};
 	return (
 		<div

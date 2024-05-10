@@ -7,7 +7,7 @@ import Item from '@/models/Item';
 import ItemCategory from '@/models/ItemCategory';
 import List from '@/models/List';
 import getSessionUser from '@/utils/getSessionUser';
-import { Category, Item as ItemType, List as ListType } from '@/utils/types';
+import { Category, Item as ItemType } from '@/utils/types';
 
 export async function createList({
 	name,
@@ -131,6 +131,11 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 	}
 }
 
+interface ListItem {
+	_id: string;
+	obtained: boolean;
+}
+
 export async function addItem({
 	listId,
 	itemId,
@@ -152,7 +157,30 @@ export async function addItem({
 			throw new Error('You must be the creator of the list to edit it');
 		}
 
-		console.log;
+		const listItems: ListItem[] = list.items as ListItem[];
+		const itemAlreadyInArray = listItems.some(
+			(item) => item._id.toString() === itemId,
+		);
+
+		if (itemAlreadyInArray) {
+			return {
+				success: false,
+				message: 'Item already in list',
+				data: null,
+			};
+		}
+
+		const newItem = { _id: itemId, obtained: false };
+		list.items.push(newItem);
+		await list.save();
+
+		revalidatePath('/lists');
+
+		return {
+			success: true,
+			message: 'List updated',
+			data: JSON.stringify(list),
+		};
 	} catch (error) {
 		console.log(error);
 		throw new Error('Something went wrong');
