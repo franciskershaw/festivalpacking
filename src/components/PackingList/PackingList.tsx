@@ -17,7 +17,7 @@ const PackingList = () => {
 
 	const { categorisedItems } = usePackingList();
 
-	const { state } = useList();
+	const { state, clearListState } = useList();
 
 	const handleToggleAll = (expand: boolean) => {
 		setExpandAll(expand);
@@ -27,7 +27,10 @@ const PackingList = () => {
 		<div className="mt-20">
 			<div className="flex justify-between items-center mb-4 text-sm md:text-base">
 				{state.festivalId ? (
-					<button className="border font-bold py-2 px-4 rounded flex items-center gap-2">
+					<button
+						onClick={() => clearListState()}
+						className="border font-bold py-2 px-4 rounded flex items-center gap-2"
+					>
 						<span>New</span>
 						<Icon size={16} name="FaPlus" />
 					</button>
