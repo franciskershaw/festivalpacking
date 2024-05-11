@@ -40,7 +40,8 @@ type Action =
 	| {
 			type: 'SET_LIST';
 			payload: List;
-	  };
+	  }
+	| { type: 'CLEAR_LIST' };
 
 // Initial state
 const initialState: ListState = {
@@ -54,10 +55,12 @@ const ListContext = createContext<{
 	state: ListState;
 	dispatch: Dispatch<Action>;
 	setList: (list: List) => void;
+	clearListState: () => void;
 }>({
 	state: initialState,
 	dispatch: () => null,
 	setList: () => null,
+	clearListState: () => null,
 });
 
 // Reducer
@@ -94,6 +97,8 @@ function listReducer(state: ListState, action: Action): ListState {
 				items: action.payload.items,
 				festivalId: action.payload._id,
 			};
+		case 'CLEAR_LIST':
+			return initialState;
 		default:
 			return state;
 	}
@@ -113,8 +118,12 @@ export const ListProvider: React.FC<{ children: React.ReactNode }> = ({
 		dispatch({ type: 'SET_LIST', payload: list });
 	};
 
+	const clearListState = () => {
+		dispatch({ type: 'CLEAR_LIST' });
+	};
+
 	return (
-		<ListContext.Provider value={{ state, dispatch, setList }}>
+		<ListContext.Provider value={{ state, dispatch, setList, clearListState }}>
 			{children}
 		</ListContext.Provider>
 	);
