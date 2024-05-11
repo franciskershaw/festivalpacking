@@ -2,17 +2,22 @@
 
 import { useState } from 'react';
 
+import { useList } from '@/providers/ListContext';
+
 import CategoryHeader from './CategoryHeader';
 import NoItems from './NoItems';
 import PackingListItem from './PackingListItem';
 import usePackingList from './usePackingList';
 
 import Accordion, { AccordionItem } from '../Accordion/Accordion';
+import Icon from '../Icon/Icon';
 
 const PackingList = () => {
 	const [expandAll, setExpandAll] = useState(true);
 
 	const { categorisedItems } = usePackingList();
+
+	const { state } = useList();
 
 	const handleToggleAll = (expand: boolean) => {
 		setExpandAll(expand);
@@ -20,22 +25,34 @@ const PackingList = () => {
 
 	return (
 		<div className="mt-20">
-			{categorisedItems.length ? (
-				<>
-					<div className="flex justify-between items-center mb-4">
+			<div className="flex justify-between items-center mb-4 text-sm md:text-base">
+				{state.festivalId ? (
+					<button className="border font-bold py-2 px-4 rounded flex items-center gap-2">
+						<span>New</span>
+						<Icon size={16} name="FaPlus" />
+					</button>
+				) : null}
+				{categorisedItems.length ? (
+					<>
 						<button
 							onClick={() => handleToggleAll(true)}
-							className="border font-bold py-2 px-4 rounded"
+							className="border font-bold py-2 px-4 rounded flex items-center gap-2"
 						>
-							Expand All
+							<span>Expand</span>
+							<Icon size={16} name="FaArrowUpWideShort" />
 						</button>
 						<button
 							onClick={() => handleToggleAll(false)}
-							className="border font-bold py-2 px-4 rounded"
+							className="border font-bold py-2 px-4 rounded flex items-center gap-2"
 						>
-							Collapse All
+							<span>Collapse</span>
+							<Icon size={16} name="FaArrowDownWideShort" />
 						</button>
-					</div>
+					</>
+				) : null}
+			</div>
+			{categorisedItems.length ? (
+				<>
 					<Accordion>
 						{categorisedItems.map((category) => (
 							<AccordionItem
@@ -55,7 +72,10 @@ const PackingList = () => {
 					</Accordion>
 				</>
 			) : (
-				<NoItems main='Your Festival Packing list' sub='Use the search bar to add items to your list' />
+				<NoItems
+					main="Your Festival Packing list"
+					sub="Use the search bar to add items to your list"
+				/>
 			)}
 		</div>
 	);
