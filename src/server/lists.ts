@@ -296,3 +296,33 @@ export async function toggleItemObtainedInList({
 		console.log(error);
 	}
 }
+
+export async function deleteList({ _id }: { _id: string }) {
+	try {
+		await connectDB();
+		const sessionUser = await getSessionUser();
+
+		if (!sessionUser || !sessionUser.user) {
+			throw new Error('You must be logged in to delete a list');
+		}
+
+		const list = await List.findById(_id);
+		if (!list) {
+			throw new Error('List not found');
+		}
+
+		if (list.createdBy.toString() !== sessionUser.user._id) {
+			throw new Error('You must be the creator of the list to delete it');
+		}
+
+		await List.findByIdAndUpdate(_id);
+
+		return {
+			success: true,
+			message: 'List deleted',
+			data: JSON.stringify({ _id }),
+		};
+	} catch (error) {
+		console.log(error);
+	}
+}
