@@ -17,6 +17,7 @@ import {
 	FaTent,
 	FaToiletPaper,
 	FaTrashCan,
+	FaXmark,
 } from 'react-icons/fa6';
 
 interface IconProps {
@@ -44,6 +45,7 @@ const Icon = ({ name, size }: IconProps) => {
 		FaTent,
 		FaToiletPaper,
 		FaTrashCan,
+		FaXmark,
 	};
 
 	const IconComponent = iconMap[name];
@@ -73,6 +75,7 @@ export type IconName =
 	| 'FaShirt'
 	| 'FaTent'
 	| 'FaToiletPaper'
-	| 'FaTrashCan';
+	| 'FaTrashCan'
+	| 'FaXmark';
 
 export default Icon;
