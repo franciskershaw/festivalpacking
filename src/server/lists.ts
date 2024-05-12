@@ -298,6 +298,7 @@ export async function toggleItemObtainedInList({
 }
 
 export async function deleteList({ _id }: { _id: string }) {
+	console.log('_id:', _id);
 	try {
 		await connectDB();
 		const sessionUser = await getSessionUser();
@@ -315,7 +316,9 @@ export async function deleteList({ _id }: { _id: string }) {
 			throw new Error('You must be the creator of the list to delete it');
 		}
 
-		await List.findByIdAndUpdate(_id);
+		await List.findByIdAndDelete(_id);
+
+		revalidatePath('/lists');
 
 		return {
 			success: true,

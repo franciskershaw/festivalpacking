@@ -16,14 +16,14 @@ export default function Modal({
 			role="presentation"
 			className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-gray-600 bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
 		>
-			<div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg mb-2 md:mb-0">
+			<div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg my-2 mx-2 md:mb-0">
 				<button className="absolute top-2 right-4 rounded-md p-2" type="button">
 					<Link href={href}>
 						<span className="sr-only">Close</span>
 						<Icon name="FaXmark" size={24} />
 					</Link>
 				</button>
-				<div className="p-2">{children}</div>
+				<div className="p-2 mt-3">{children}</div>
 			</div>
 		</div>
 	);
