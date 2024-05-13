@@ -76,3 +76,19 @@ export async function getItems() {
 		console.log(error);
 	}
 }
+
+export async function getItemCategories() {
+	try {
+		await connectDB();
+
+		const itemCategories = await ItemCategory.find();
+
+		return {
+			sucess: true,
+			message: 'success',
+			data: JSON.stringify(itemCategories),
+		};
+	} catch (error) {
+		console.log(error);
+	}
+}
