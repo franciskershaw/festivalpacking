@@ -1,12 +1,17 @@
 'use client';
 
 import { Item } from '@/utils/types';
+import { useSession } from 'next-auth/react';
 
 import SearchResult from './SearchResult';
 import useSearchBar from './useSearchBar';
 
+import Icon from '../Icon/Icon';
+
 const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 	const { search, setSearch, searchResults } = useSearchBar(allItems);
+
+	const { data: session } = useSession();
 
 	return (
 		<>
@@ -17,16 +22,32 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				placeholder="Search items..."
 				onChange={(e) => setSearch(e.target.value)}
 			/>
-			{searchResults.length > 0 && search !== '' && (
+			{search !== '' && (
 				<div className="absolute top-14 left-0 w-full bg-white border border-gray-300 shadow mt-2">
-					{searchResults.map((item, index) => (
-						<SearchResult
-							key={item._id}
-							item={item}
-							border={index < searchResults.length - 1}
-							setSearch={setSearch}
-						/>
-					))}
+					{searchResults.length > 0 ? (
+						searchResults.map((item, index) => (
+							<SearchResult
+								key={item._id}
+								item={item}
+								border={index < searchResults.length - 1}
+								setSearch={setSearch}
+							/>
+						))
+					) : (
+						<div className="text-center py-4 space-y-4">
+							<h3 className="text-xl">No items found</h3>
+							{session ? (
+								<button className="flex justify-center items-center w-full">
+									<div className="flex items-center gap-2">
+										<span>Add new item</span>
+										<Icon size={15} name="FaCirclePlus" />
+									</div>
+								</button>
+							) : (
+								<button>Login to add custom items</button>
+							)}
+						</div>
+					)}
 				</div>
 			)}
 		</>
