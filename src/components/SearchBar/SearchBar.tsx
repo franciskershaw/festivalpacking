@@ -23,6 +23,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				value={search}
 				placeholder="Search items..."
 				onChange={(e) => setSearch(e.target.value)}
+                id='searchItems'
 			/>
 			{search !== '' && (
 				<div className="absolute top-14 left-0 w-full bg-white border border-gray-300 shadow mt-2">
@@ -41,7 +42,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 							{session ? (
 								<Link
 									className="flex justify-center items-center w-full"
-									href="/?newItem=true"
+									href={`/?newItem=true&newItemName=${search}`}
 								>
 									<div className="flex items-center gap-2">
 										<span>Add new item</span>

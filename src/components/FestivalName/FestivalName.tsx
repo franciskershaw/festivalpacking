@@ -55,6 +55,7 @@ const FestivalName = () => {
 				placeholder="New Festival"
 				value={state.festivalName}
 				onChange={onChange}
+                id='newFestival'
 			/>
 
 			{session && state.festivalName.trim() && !state.festivalId && (

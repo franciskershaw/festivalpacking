@@ -1,5 +1,5 @@
+import AddItemModal from '@/components/AddItem/AddItemModal';
 import ListHeader from '@/components/ListHeader/ListHeader';
-import Modal from '@/components/Modal/Modal';
 import PackingList from '@/components/PackingList/PackingList';
 
 export const dynamic = 'force-dynamic';
@@ -9,18 +9,15 @@ export type SearchParamProps = {
 };
 
 export default function Home({ searchParams }: SearchParamProps) {
-	const show = searchParams?.newItem;
+	const showNewItemModal = searchParams?.newItem;
+	const newItemName = searchParams?.newItemName;
 
 	return (
 		<>
-			{/* Header text input and search */}
 			<ListHeader />
-			{/* Packing list */}
 			<PackingList />
-			{show && (
-				<Modal href="/">
-					<p>Test</p>
-				</Modal>
+			{showNewItemModal && newItemName && (
+				<AddItemModal newItemName={newItemName} />
 			)}
 		</>
 	);
