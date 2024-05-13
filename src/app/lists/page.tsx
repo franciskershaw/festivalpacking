@@ -10,6 +10,8 @@ import NoItems from '@/components/PackingList/NoItems';
 
 import EditList from './client/EditList';
 
+export const dynamic = 'force-dynamic';
+
 type SearchParamProps = {
 	searchParams: Record<string, string> | null | undefined;
 };
