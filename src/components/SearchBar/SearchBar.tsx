@@ -23,7 +23,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				value={search}
 				placeholder="Search items..."
 				onChange={(e) => setSearch(e.target.value)}
-                id='searchItems'
+				id="searchItems"
 			/>
 			{search !== '' && (
 				<div className="absolute top-14 left-0 w-full bg-white border border-gray-300 shadow mt-2">
@@ -50,7 +50,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 									</div>
 								</Link>
 							) : (
-								<button>Login to add custom items</button>
+								<div>Login to add custom items</div>
 							)}
 						</div>
 					)}
