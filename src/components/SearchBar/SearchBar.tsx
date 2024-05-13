@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { Item } from '@/utils/types';
 import { useSession } from 'next-auth/react';
 
@@ -37,12 +39,15 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 						<div className="text-center py-4 space-y-4">
 							<h3 className="text-xl">No items found</h3>
 							{session ? (
-								<button className="flex justify-center items-center w-full">
+								<Link
+									className="flex justify-center items-center w-full"
+									href="/?newItem=true"
+								>
 									<div className="flex items-center gap-2">
 										<span>Add new item</span>
 										<Icon size={15} name="FaCirclePlus" />
 									</div>
-								</button>
+								</Link>
 							) : (
 								<button>Login to add custom items</button>
 							)}
