@@ -58,9 +58,7 @@ const ListsPage = async ({ searchParams }: SearchParamProps) => {
 				)}
 			</div>
 			{show && idToDelete && (
-				<Modal href={'/lists'}>
-					<DeleteListModal _id={idToDelete} href={'/lists'} />
-				</Modal>
+				<DeleteListModal _id={idToDelete} href={'/lists'} />
 			)}
 		</>
 	);
