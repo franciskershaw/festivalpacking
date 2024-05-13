@@ -5,7 +5,6 @@ import { List } from '@/utils/types';
 
 import DeleteListModal from '@/components/DeleteList/DeleteListModal';
 import Icon from '@/components/Icon/Icon';
-import Modal from '@/components/Modal/Modal';
 import NoItems from '@/components/PackingList/NoItems';
 
 import EditList from './client/EditList';

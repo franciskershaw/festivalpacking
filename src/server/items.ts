@@ -86,7 +86,7 @@ export async function getItemCategories() {
 		return {
 			sucess: true,
 			message: 'success',
-			data: JSON.stringify(itemCategories),
+			data: JSON.parse(JSON.stringify(itemCategories)),
 		};
 	} catch (error) {
 		console.log(error);
