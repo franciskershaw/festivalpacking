@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { useList } from '@/providers/ListContext';
 import { deleteList } from '@/server/lists';
 
 import Modal from '../Modal/Modal';
@@ -10,8 +11,13 @@ import Modal from '../Modal/Modal';
 const DeleteListModal = ({ href, _id }: { href: string; _id: string }) => {
 	const router = useRouter();
 
+	const { state, clearListState } = useList();
+
 	const onClick = async () => {
 		await deleteList({ _id });
+		if (state.festivalId && state.festivalId === _id) {
+			clearListState();
+		}
 		router.push(href);
 	};
 
