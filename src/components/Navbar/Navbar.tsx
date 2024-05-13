@@ -33,7 +33,7 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<nav className=" bg-gray-200 py-5 fixed bottom-0 left-0 flex justify-around items-center w-full">
+		<nav className=" py-5 fixed bottom-0 left-0 flex justify-around items-center w-full border-t-2 shadow-sm">
 			<Link
 				href="/"
 				className="flex flex-col gap-2 items-center justify-center"

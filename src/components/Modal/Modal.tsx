@@ -18,7 +18,7 @@ export default function Modal({
 		>
 			<dialog
 				open
-				className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg my-2 mx-2 md:mb-0"
+				className="relative w-full max-w-md rounded-lg p-6 shadow-lg my-2 mx-2 md:mb-0 text-indigo-950"
 			>
 				<button className="absolute top-2 right-4 rounded-md p-2" type="button">
 					<Link href={href}>

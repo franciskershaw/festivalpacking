@@ -25,7 +25,7 @@ const PackingList = () => {
 
 	return (
 		<div className="mt-20">
-			<div className="flex justify-between items-center mb-4 text-sm md:text-base">
+			<div className="pt-2 flex justify-between items-center mb-4 text-sm md:text-base">
 				{state.festivalId ? (
 					<button
 						onClick={() => clearListState()}

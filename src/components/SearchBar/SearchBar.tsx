@@ -18,7 +18,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 	return (
 		<>
 			<input
-				className="text-sm border border-gray-300 rounded-md pl-2 h-full w-full focus:border-gray-500 focus:outline-none"
+				className="bg-transparent text-sm border border-gray-300 rounded-md pl-2 h-full w-full focus:border-gray-500 focus:outline-none"
 				type="text"
 				value={search}
 				placeholder="Search items..."
@@ -26,7 +26,7 @@ const SearchBar = ({ allItems }: { allItems: Item[] }) => {
 				id="searchItems"
 			/>
 			{search !== '' && (
-				<div className="absolute top-14 left-0 w-full bg-white border border-gray-300 shadow mt-2">
+				<div className="absolute top-14 left-0 w-full bg-indigo-900 border border-gray-300 shadow mt-2">
 					{searchResults.length > 0 ? (
 						searchResults.map((item, index) => (
 							<SearchResult
