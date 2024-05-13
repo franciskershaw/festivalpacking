@@ -1,46 +1,39 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
 import connectDB from '@/config/database';
 import Item from '@/models/Item';
 import ItemCategory from '@/models/ItemCategory';
 import getSessionUser from '@/utils/getSessionUser';
-import { Category } from '@/utils/types';
 import { ObjectId } from 'mongodb';
 
-export async function createItem({
-	name,
-	category,
-}: {
-	name: string;
-	category: Category;
-}) {
-	try {
-		await connectDB();
+export async function createItem(formData: FormData) {
+	await connectDB();
 
-		const sessionUser = await getSessionUser();
+	const sessionUser = await getSessionUser();
 
-		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
-		}
-
-		const newItem = new Item({
-			name,
-			category,
-			createdBy: sessionUser.user._id,
-			approved: sessionUser.user.isAdmin ? true : false,
-		});
-
-		await newItem.save();
-		await getItems();
-
-		return {
-			success: true,
-			message: 'List created successfully',
-			data: JSON.stringify(newItem),
-		};
-	} catch (error) {
-		console.log(error);
+	if (!sessionUser || !sessionUser.user) {
+		throw new Error('You must be logged in to create an item');
 	}
+
+	const name = formData.get('newItemName');
+	const category = formData.get('newItemCategory');
+
+	const newItem = new Item({
+		name,
+		category,
+		createdBy: sessionUser.user._id,
+		approved: sessionUser.user.isAdmin ? true : false,
+	});
+
+	await newItem.save();
+	await getItems();
+
+	revalidatePath('/');
+
+	redirect('/');
 }
 
 export async function getItems() {
