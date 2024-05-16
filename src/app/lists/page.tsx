@@ -21,8 +21,8 @@ const ListsPage = async ({ searchParams }: SearchParamProps) => {
 	const idToDelete = searchParams?.id;
 
 	return (
-		<>
-			<div className="pt-6 space-y-4">
+		<div className="md:flex md:justify-center">
+			<div className="pt-6 space-y-4 md:w-1/2">
 				<h1 className="text-2xl">Saved lists</h1>
 				{data?.length === 0 ? (
 					<NoItems
@@ -59,7 +59,7 @@ const ListsPage = async ({ searchParams }: SearchParamProps) => {
 			{show && idToDelete && (
 				<DeleteListModal _id={idToDelete} href={'/lists'} />
 			)}
-		</>
+		</div>
 	);
 };
 

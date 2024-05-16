@@ -24,7 +24,7 @@ const PackingList = () => {
 	};
 
 	return (
-		<div className="mt-20">
+		<div className="mt-20 md:w-1/2">
 			<div className="pt-2 flex justify-between items-center mb-4 text-sm md:text-base">
 				{state.festivalId ? (
 					<button
@@ -36,7 +36,7 @@ const PackingList = () => {
 					</button>
 				) : null}
 				{categorisedItems.length ? (
-					<>
+					<div className='flex gap-4'>
 						<button
 							onClick={() => handleToggleAll(true)}
 							className="border font-bold py-2 px-4 rounded flex items-center gap-2"
@@ -51,7 +51,7 @@ const PackingList = () => {
 							<span>Collapse</span>
 							<Icon size={16} name="FaArrowDownWideShort" />
 						</button>
-					</>
+					</div>
 				) : null}
 			</div>
 			{categorisedItems.length ? (

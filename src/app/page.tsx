@@ -13,12 +13,12 @@ export default function Home({ searchParams }: SearchParamProps) {
 	const newItemName = searchParams?.newItemName;
 
 	return (
-		<>
+		<div className='md:flex md:justify-center'>
 			<ListHeader />
 			<PackingList />
 			{showNewItemModal && newItemName && (
 				<AddItemModal newItemName={newItemName} />
 			)}
-		</>
+		</div>
 	);
 }

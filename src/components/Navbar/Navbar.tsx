@@ -33,7 +33,7 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<nav className=" py-5 fixed bottom-0 left-0 flex justify-around items-center w-full border-t-2 shadow-sm">
+		<nav className="bg-indigo-900 py-5 fixed bottom-0 w-full border-t-2 shadow-sm flex justify-around items-center md:flex-col md:items-center md:justify-center md:gap-16 md:h-full md:py-0 md:px-6 md:border-0 md:top-0 md:right-0 md:w-auto">
 			<Link
 				href="/"
 				className="flex flex-col gap-2 items-center justify-center"
