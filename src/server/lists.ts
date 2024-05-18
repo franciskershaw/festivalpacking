@@ -21,7 +21,7 @@ export async function createList({
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to create a list');
 		}
 
 		const formattedItems = items.map((item: ItemType) => ({
@@ -65,7 +65,7 @@ export async function getUserLists() {
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to view saved lists');
 		}
 
 		const lists = await List.find({ createdBy: sessionUser.user._id })
@@ -104,7 +104,7 @@ export async function updateName({ _id, name }: { _id: string; name: string }) {
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to update a list name');
 		}
 
 		const list = await List.findById(_id);
@@ -151,7 +151,7 @@ export async function addItemToList({
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to add an item to a list');
 		}
 
 		const list = await List.findById(listId);
@@ -204,7 +204,7 @@ export async function removeItemFromList({
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to remove an item from a list');
 		}
 
 		const list = await List.findById(listId);
@@ -257,7 +257,7 @@ export async function toggleItemObtainedInList({
 		const sessionUser = await getSessionUser();
 
 		if (!sessionUser || !sessionUser.user) {
-			throw new Error('You must be logged in to edit a list');
+			throw new Error('You must be logged in to toggle status of an item in a list');
 		}
 
 		const list = await List.findById(listId);
