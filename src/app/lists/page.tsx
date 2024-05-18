@@ -36,7 +36,7 @@ const ListsPage = async ({ searchParams }: SearchParamProps) => {
 							key={list._id}
 						>
 							<div className="space-y-1">
-								<h2 className="text-lg">{list.name}</h2>
+								<h2 className="text-lg">{list.name || 'Untitled'}</h2>
 								<h3 className="text-xs">
 									Created: {new Date(list.createdAt).toLocaleDateString()}
 								</h3>
